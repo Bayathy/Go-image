@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	"image"
 	_ "image"
 	_ "image/color"
 	"image/png"
@@ -9,19 +9,20 @@ import (
 )
 
 func main() {
-	img, _ := png.Decode(os.Stdin)
-	//bounds := img.Bounds()
-	fmt.Println(img.ColorModel()) 
-
-
+	in, _ := os.Open("momiji.png")
+	out, _ := os.Create("momijicopy.png")
+	img, _ := png.Decode(in)
+	bounds := img.Bounds()
 
 	//dest := image.NewGray16(bounds)
-	//for y := bounds.Min.Y; y < bounds.Max.Y; y++ {
-	//	for x := bounds.Min.X; x < bounds.Max.X; x++ {
-	//		c := color.Gray16Model.Convert(img.At(x, y))
-	//		gray, _ := c.(color.Gray16)
-	//		dest.Set(x, y, gray)
-	//	}
-	//}
-	//png.Encode(os.Stdout, dest)
+	dest := image.NewRGBA(bounds)
+
+
+	for y := bounds.Min.Y; y < bounds.Max.Y; y++ {
+		for x := bounds.Min.X; x < bounds.Max.X; x++ {
+					c := img.At(x,y)
+					dest.Set(x, y, c)
+			}
+	}
+	png.Encode(out, dest)
 }
