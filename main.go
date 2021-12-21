@@ -23,7 +23,7 @@ func main() {
 		srange uint8
 	)
 
-	crange = 20
+	crange = 40
 	srange = 70
 
 	for i = 0; i < crange; i++ {
@@ -38,7 +38,10 @@ func main() {
 
 	aclist := [...]color.RGBA{
 		//{170,94,102,255},
-		{170, 44, 48, 255},
+		{240, 44, 48, 255},
+		{210, 71, 29, 255},
+		{210, 20, 14, 255},
+		{239, 99, 82, 255},
 	}
 
 	img, _ := png.Decode(in)
@@ -53,7 +56,7 @@ func main() {
 		for x := bounds.Min.X; x < bounds.Max.X; x++ {
 			color := img.At(x, y)
 			for i := 0; i < len(wtclist); i++ {
-				if color == wtclist[i] && y < 400 {
+				if color == wtclist[i] && y < 1200 {
 					//fmt.Println("success")
 					color = aclist[rand.Intn(len(aclist))]
 				}
